@@ -1,5 +1,10 @@
+## Ignore the following files:
+
+# Tmp files
 *~
-*main*
+
+# Pycache files
 *__pycache__*
-*.o
-*.pyc
+
+# Temporarily created file from running console
+file.json
