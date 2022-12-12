@@ -1,4 +1,5 @@
-.vscode/
-*pycache*
-
-storage.json
+*~
+*main*
+*__pycache__*
+*.o
+*.pyc
