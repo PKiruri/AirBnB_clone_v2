@@ -1,1 +1,4 @@
-Th
+.vscode/
+*pycache*
+
+storage.json
