@@ -1,28 +1,30 @@
 #!/usr/bin/python3
-""" Starts a Flask application related to HBNB. """
-
-from flask import Flask, render_template
+"""Starts a Flask web application.
+The application listens on 0.0.0.0, port 5000.
+Routes:
+    /states_list: HTML page with a list of all State objects in DBStorage.
+"""
 from models import storage
-from models.state import State
+from flask import Flask
+from flask import render_template
 
 app = Flask(__name__)
 
 
+@app.route("/states_list", strict_slashes=False)
+def states_list():
+    """Displays an HTML page with a list of all State objects in DBStorage.
+    States are sorted by name.
+    """
+    states = storage.all("State")
+    return render_template("7-states_list.html", states=states)
+
+
 @app.teardown_appcontext
-def teardown_db(exception):
-    """Closes the database session after each request."""
+def teardown(exc):
+    """Remove the current SQLAlchemy session."""
     storage.close()
 
 
-@app.route('/states_list', strict_slashes=False)
-def states_list():
-    """
-        Flask route at /states_list.
-        Displays the list of the States in the database.
-    """
-    states = storage.all(State).values()
-    return render_template('7-states_list.html', states=states)
-
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0")
